@@ -1,0 +1,36 @@
+#login_info {
+    display: inline-block;
+    width: 150px;
+    height: 75px;
+    margin: 10px;
+    border: 3px solid #73AD21;  
+}
+header {
+	display: inline-block;
+}
+
+body {
+	margin-left:15%;
+	margin-right:15%;
+	/*
+	background-color: lightblue;
+	*/
+}
+
+h1 {
+    color: navy;
+    margin-left: 0px;
+}
+
+#main_logo {
+	float: left;
+	padding: 12px;
+	height: 75px;
+	width: auto;
+}
+#chips {
+      font-size: 80%;
+}
+
+
+

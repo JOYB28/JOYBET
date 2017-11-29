@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../../static/semantic/dist/semantic.css">
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="../../static/semantic/dist/semantic.js"> </script>
+  <title>{% block title %}Yoonseo Bet{% endblock %}</title>
+  <style type="text/css">
+    #login_info {
+        display: inline-block;
+        width: auto;
+        height: 75px;
+        float: right;
+        margin-top: 17px;
+    }
+    #signup-button {
+      float: right;
+    }
+    #login-button {
+      float: right;
+    }
+    #chips {
+      font-size: 80%;
+    }
+    body {
+      margin-left:15%;
+      margin-right:15%;
+    }
+    h1 {
+        color: navy;
+        margin-left: 0px;
+    }
+    #main_logo {
+      padding: 10px;
+      height: 120px;
+      width: auto;
+    }
+    .card {
+      margin-top: 20px;
+      float: right;
+      width: 20%;
+    }
+    .main_logo {
+      float: left;
+    }
+    header {
+      width: 100%;
+      height: auto;
+      display: inline-block;
+    }
+    form {
+      margin: auto;
+      width: 100%;
+    }
+    table {
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin: auto;
+    }
+    form {
+      margin: 10px;
+    }
+    .match_info {
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-right: auto;
+      margin-left: auto;
+      width: 70%;
+      border-radius: 20px;
+      border: 2px solid #000000;
+    }
+    .team_info {
+      float: left;
+      width: 40%;
+      text-align: justify;
+    }
+    .team_info img {
+      display: block;
+      margin: auto;
+    }
+    .center_info {
+      text-align: center;
+      float: left;
+      width: 20%;
+    }
+    .date {
+      text-align:center;
+    }
+    .bet_info {
+      margin :auto;
+      clear: both;
+      width: 100%;
+    }
+    .team_info div {
+      width: 100%;
+      text-align: center;
+    }
+    .ui.action.input {
+      margin-left: 25%;
+      width: 50%;
+    }
+    .bet_amount {
+      width: 100%;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div id="root">
+      <div class="main_logo">
+        <a href="{% url 'index' %}">
+          <img src="{% static 'image/logo.png' %}" alt="Logo" id="main_logo">
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="card">
+        <div class="content">
+          <img class="right floated tiny ui image" src="{% static 'image/' %}{{user.userprofile.prefer_team}}.png" height="50px">
+          <div class="header">
+            {{ user.username }}님
+          </div>
+          <div class="description">
+            {{ user.userprofile.game_money}}칩<br>
+            충전가능시간<br>
+            {{ user.userprofile.can_recharge|date:"m월d일"}}
+            {{ user.userprofile.can_recharge|time:"H시i분"}}
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui two buttons">
+            <div class="ui basic navy button" id="recharge">충전</div>
+            <div class="ui basic red button" id="logout">로그아웃</div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div id="login_info">
+        <div class="ui black basic button" id="signup">
+          회원가입 
+        </div>
+        <div class="ui black basic button" id="login">
+          로그인 
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  <hr>
+  <main>
+    <div id="main">
+    {% block content %}
+    {% endblock %}
+    </div>
+  </main>
+  <hr>
+  <footer>
+    <a href="http:/http://sports.news.naver.com/wfootball/index.nhn">네이버 해외축구</a>
+  </footer>
+
+  {% if user.is_authenticated %}
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById("logout").onclick = function () {
+        location.href = "/logout/";
+      };
+      document.getElementById("recharge").onclick = function () {
+        location.href = "/users/recharge/";
+      };
+    };
+  </script>
+  {% else %}
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById("login").onclick = function () {
+        location.href = "/login/";
+      };
+      document.getElementById("signup").onclick = function () {
+        location.href = "/users/signup/";
+      };
+    };
+  </script>
+  {% endif %}
+</body>
+</html> 

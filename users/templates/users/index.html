@@ -1,0 +1,86 @@
+{% extends 'users/base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+{% load static %}
+  <a href="https://www.premierleague.com/">
+  	<img class="ui fluid image" src="{% static 'image/프리미.jpg' %}">
+  </a>
+  	{% for m in match %}
+	  <div class="match_info">
+	  	<div class="date">{{m.date}}</div>
+	  	<ul>
+	  		<li>
+		  		<div class="team_info">
+		  			<img src="{% static 'image/' %}{{m.home_team}}.png">
+		  			<div>
+		  				<span class="team_name">{{m.home_team}}</span>
+		  			</div>
+		  		</div>
+		  		<div class="center_info">
+		  			{% if m.is_finished %}
+		  				<span class="home_score">{{m.home_team_score}}</span>
+			  			<button class="ui black basic button">경기종료</button>
+			  			<span class="away_score">{{m.away_team_score}}</span><br>
+			  			<span class="total_bet">총배팅</span><br>
+			  			<span class="total_bet_amount">{{m.total_bet}}</span>
+		  			{% else %}
+			  			<button class="ui black basic button">경기전</button>
+			  			<br>
+			  			<span class="total_bet">총배팅</span><br>
+			  			<span class="total_bet_amount">{{m.total_bet}}</span>
+		  			{% endif %}
+		  		</div>
+		  		<div class="team_info">
+		  			<img src="{% static 'image/' %}{{m.away_team}}.png">
+		  			<div>
+		  				<span class="team_score">{{m.away_team}}</span>
+		  			</div>
+		  		</div>
+		  		<br>	
+		  		<div class="bet_info">
+		  			<div class="ui form">
+					  <div class="inline fields">
+					    <div class="field">
+					      <div class="ui slider checkbox">
+					        <input type="radio" name="throughput" checked="checked">
+					        <label>승: {{m.win}}</label>
+					      </div>
+					    </div>
+					    <div class="field">
+					      <div class="ui slider checkbox">
+					        <input type="radio" name="throughput">
+					        <label>무: {{m.draw}}</label>
+					      </div>
+					    </div>
+					    <div class="field">
+					      <div class="ui slider checkbox">
+					        <input type="radio" name="throughput">
+					        <label>패: {{m.loose}}</label>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+		  		</div>
+		  		{% if m.is_finished %}
+		  		
+		  		{% else %}
+		  		<div class="bet_amount">
+		  			<div class="ui action input">
+	  					<input type="text" placeholder="">
+	  					<button class="ui button">배팅</button>
+					</div>
+		  		</div>	
+		  		{% endif %}
+
+	  		</li>
+	  	</ul>
+	  </div>
+	{% endfor %}
+{% else %}
+  로그인하셔야 이용가능합니다. <br>
+  <a href="{% url 'login' %}">로그인</a>하시겠습니까? <br>
+{% endif %}
+
+
+{% endblock %}
